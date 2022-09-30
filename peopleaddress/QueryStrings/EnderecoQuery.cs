@@ -1,6 +1,6 @@
 ﻿namespace peopleaddress.QueryStrings
 {
-    public class EnderecoQuery
+    public static class EnderecoQuery
     {
         public static string GetAll = @"SELECT  enderecoId,
 		                                        pessoaId,
