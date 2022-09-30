@@ -21,7 +21,7 @@ namespace peopleaddress.General
             failure = false;
             errors = new List<string>();
             code = ((int)HttpStatusCode.OK).ToString();
-            date = DateTime.Now.ToLongDateString();
+            date = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
         }
 
         public void AddError(Exception ex)
