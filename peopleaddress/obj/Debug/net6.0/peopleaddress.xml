@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>peopleaddress</name>
+    </assembly>
+    <members>
+        <member name="M:peopleaddress.Controllers.PessoasController.Post(peopleaddress.Request.PeopleRequest,peopleaddress.General.ObjectDAO)">
+            <summary>
+            Método responsavel por salvar pessoa no banco de dados os parâmetros.
+            </summary>
+            <remarks>
+                POST
+               {
+                 "transactionId": "string",
+                 "failure": true,
+                 "data": "string",
+                 "errors": [
+                   "string"
+                 ],
+                 "code": "string",
+                 "date": "string"
+               }
+            </remarks>
+            <returns>Um novo item criado</returns>
+            <response code="200">Retorna confirmação do insert do registo com o Id.</response>
+            <response code="400">Retorna quando código gerou um retorno de Exception</response>
+        </member>
+    </members>
+</doc>
