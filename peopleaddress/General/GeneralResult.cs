@@ -20,7 +20,7 @@ namespace peopleaddress.General
         {
             failure = false;
             errors = new List<string>();
-            code = HttpStatusCode.OK.ToString();
+            code = ((int)HttpStatusCode.OK).ToString();
             date = DateTime.Now.ToLongDateString();
         }
 
@@ -28,7 +28,7 @@ namespace peopleaddress.General
         {
             failure = true;
             data = new { };
-            code = HttpStatusCode.BadRequest.ToString();
+            code = ((int)HttpStatusCode.BadRequest).ToString();
             errors.Add(ex.Message);
         }
     }

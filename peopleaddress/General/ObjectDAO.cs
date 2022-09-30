@@ -88,7 +88,7 @@ namespace peopleaddress.General
                 }
 
                 if (!(bool)result.data)
-                    result.code = HttpStatusCode.NoContent.ToString();
+                    result.code = ((int)HttpStatusCode.NoContent).ToString();
             }
             catch (Exception ex)
             {
