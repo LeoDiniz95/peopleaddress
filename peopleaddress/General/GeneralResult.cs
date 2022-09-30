@@ -1,4 +1,6 @@
-﻿namespace peopleaddress.General
+﻿using System.Net;
+
+namespace peopleaddress.General
 {
     public class GeneralResult
     {
@@ -18,6 +20,7 @@
         {
             failure = false;
             errors = new List<string>();
+            code = HttpStatusCode.OK.ToString();
             date = DateTime.Now.ToLongDateString();
         }
 
@@ -25,6 +28,7 @@
         {
             failure = true;
             data = new { };
+            code = HttpStatusCode.BadRequest.ToString();
             errors.Add(ex.Message);
         }
     }

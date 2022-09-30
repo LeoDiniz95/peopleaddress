@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using MySqlConnector;
+using System.Net;
 
 namespace peopleaddress.General
 {
@@ -85,6 +86,9 @@ namespace peopleaddress.General
                 {
                     result.data = conexao.Execute(query) >= 1;
                 }
+
+                if (!(bool)result.data)
+                    result.code = HttpStatusCode.NoContent.ToString();
             }
             catch (Exception ex)
             {

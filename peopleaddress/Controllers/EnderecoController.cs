@@ -18,18 +18,18 @@ namespace peopleaddress.Controllers
         }
 
         [HttpPut("{enderecoId}")]
-        public GeneralResult Put(int enderecoId, [FromBody] AddressRequest pAddressRequest, [FromServices] ObjectDAO pObject)
+        public GeneralResult Put(int enderecoId, [FromBody] AddressRequest addressRequest, [FromServices] ObjectDAO pObject)
         {
             var result = new GeneralResult();
 
             try
             {
-                var queryParams = EnderecoQuery.Update.Replace("{pessoaId}", pAddressRequest.pessoaId.ToString())
-                                                      .Replace("{logradouro}", pAddressRequest.logradouro)
-                                                      .Replace("{numero}", pAddressRequest.numero.ToString())
-                                                      .Replace("{bairro}", pAddressRequest.bairro)
-                                                      .Replace("{cidade}", pAddressRequest.cidade)
-                                                      .Replace("{uf}", pAddressRequest.uf)
+                var queryParams = EnderecoQuery.Update.Replace("{pessoaId}", addressRequest.pessoaId.ToString())
+                                                      .Replace("{logradouro}", addressRequest.logradouro)
+                                                      .Replace("{numero}", addressRequest.numero?.ToString() ?? "NULL")
+                                                      .Replace("{bairro}", addressRequest.bairro)
+                                                      .Replace("{cidade}", addressRequest.cidade)
+                                                      .Replace("{uf}", addressRequest.uf)
                                                       .Replace("{enderecoId}", enderecoId.ToString());
 
                 result = pObject.Other(queryParams);
@@ -49,18 +49,18 @@ namespace peopleaddress.Controllers
         }
 
         [HttpPost]
-        public GeneralResult Post([FromBody] AddressRequest pAddressRequest, [FromServices] ObjectDAO pObject)
+        public GeneralResult Post([FromBody] AddressRequest addressRequest, [FromServices] ObjectDAO pObject)
         {
             var result = new GeneralResult();
 
             try
             {
-                var queryParams = EnderecoQuery.Insert.Replace("{pessoaId}", pAddressRequest.pessoaId.ToString())
-                                                      .Replace("{logradouro}", pAddressRequest.logradouro)
-                                                      .Replace("{numero}", pAddressRequest.numero.ToString())
-                                                      .Replace("{bairro}", pAddressRequest.bairro)
-                                                      .Replace("{cidade}", pAddressRequest.cidade)
-                                                      .Replace("{uf}", pAddressRequest.uf);
+                var queryParams = EnderecoQuery.Insert.Replace("{pessoaId}", addressRequest.pessoaId.ToString())
+                                                      .Replace("{logradouro}", addressRequest.logradouro)
+                                                      .Replace("{numero}", addressRequest.numero?.ToString() ?? "NULL")
+                                                      .Replace("{bairro}", addressRequest.bairro)
+                                                      .Replace("{cidade}", addressRequest.cidade)
+                                                      .Replace("{uf}", addressRequest.uf);
 
                 result = pObject.Insert(queryParams);
             }

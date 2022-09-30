@@ -26,6 +26,7 @@ namespace peopleaddress.Controllers
             {
                 var queryParams = PessoaQuery.Update.Replace("{nome}", peopleRequest.nome)
                                                 .Replace("{idade}", peopleRequest.idade.ToString())
+                                                .Replace("{dataNascimento}", peopleRequest.dataNascimento)
                                                 .Replace("{email}", peopleRequest.email)
                                                 .Replace("{telefone}", peopleRequest.telefone)
                                                 .Replace("{celular}", peopleRequest.celular)
@@ -56,6 +57,7 @@ namespace peopleaddress.Controllers
             {
                 var queryParams = PessoaQuery.Insert.Replace("{nome}", peopleRequest.nome)
                                                 .Replace("{idade}", peopleRequest.idade.ToString())
+                                                .Replace("{dataNascimento}", peopleRequest.dataNascimento)
                                                 .Replace("{email}", peopleRequest.email)
                                                 .Replace("{telefone}", peopleRequest.telefone)
                                                 .Replace("{celular}", peopleRequest.celular);
