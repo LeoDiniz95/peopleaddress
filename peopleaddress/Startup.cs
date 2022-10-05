@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using peopleaddress.General;
+using peopleaddress.GeneralData;
+using peopleaddress.Repository;
 
 namespace peopleaddress
 {
@@ -14,7 +16,11 @@ namespace peopleaddress
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<DbSession>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<ObjectDAO>();
+            services.AddTransient<Pessoas>();
+            services.AddTransient<Endereco>();
 
             services.AddMvc();
         }

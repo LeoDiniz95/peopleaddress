@@ -21,7 +21,7 @@
                                               celular,
                                               cadastro,
                                               alteracao FROM pessoas
-                                               where pessoaId = {0}";
+                                               where pessoaId = @pessoaId";
 
         public static string Insert = @"Insert Into pessoas (nome,
                                                              dataNascimento,
@@ -31,25 +31,25 @@
                                                              celular,
                                                              cadastro)
                                                              VALUES
-                                                            ('{nome}',
-                                                             '{dataNascimento}',
-                                                             {idade},
-                                                             '{email}',
-                                                             '{telefone}',
-                                                             '{celular}',
+                                                            (@nome,
+                                                             @dataNascimento,
+                                                             @idade,
+                                                             @email,
+                                                             @telefone,
+                                                             @celular,
                                                              NOW());
-                                          SELECT LAST_INSERT_ID()";
+                                                            SELECT LAST_INSERT_ID();";
 
 
-        public static string Update = @"UPDATE pessoas SET nome = '{nome}',
-                                                       dataNascimento = '{dataNascimento}',
-                                                       idade = {idade},
-                                                       email = '{email}',
-                                                       telefone = '{telefone}',
-                                                       celular = '{celular}',
+        public static string Update = @"UPDATE pessoas SET nome = @nome,
+                                                       dataNascimento = @dataNascimento,
+                                                       idade = @idade,
+                                                       email = @email,
+                                                       telefone = @telefone,
+                                                       celular = @celular,
                                                        alteracao = NOW()
-													WHERE pessoaId = {pessoaId}";
+													WHERE pessoaId = @pessoaId";
 
-        public static string Delete = @"DELETE FROM pessoas where pessoaId = {0}";
+        public static string Delete = @"DELETE FROM pessoas where pessoaId = @pessoaId";
     }
 }
