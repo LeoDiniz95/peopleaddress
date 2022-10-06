@@ -18,7 +18,7 @@ namespace peopleaddress
         {
             services.AddScoped<DbSession>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<ObjectDAO>();
+            //services.AddTransient<ObjectDAO>();
             services.AddTransient<Pessoas>();
             services.AddTransient<Endereco>();
 

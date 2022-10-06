@@ -20,15 +20,20 @@ namespace peopleaddress.General
         {
             failure = false;
             errors = new List<string>();
-            code = ((int)HttpStatusCode.OK).ToString();
+            ChangeStatus(HttpStatusCode.OK);
             date = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+        }
+
+        public void ChangeStatus(HttpStatusCode status)
+        {
+            code = ((int)status).ToString();
         }
 
         public void AddError(Exception ex)
         {
             failure = true;
             data = new { };
-            code = ((int)HttpStatusCode.BadRequest).ToString();
+            ChangeStatus(HttpStatusCode.BadRequest);
             errors.Add(ex.Message);
         }
     }

@@ -11,7 +11,7 @@
                                                 uf,
                                                 cadastro,
                                                 alteracao FROM endereco
-                                               where pessoaId = {0}";
+                                               where pessoaId = @pessoaId";
 
         public static string Get = @"SELECT     enderecoId,
 		                                        pessoaId,
@@ -22,7 +22,7 @@
                                                 uf,
                                                 cadastro,
                                                 alteracao FROM endereco
-                                               where enderecoId = {0}";
+                                               where enderecoId = @enderecoId";
 
         public static string Insert = @"Insert Into endereco (pessoaId,
                                                              logradouro,
@@ -32,25 +32,25 @@
                                                              uf,
                                                              cadastro)
                                                             VALUES
-                                                             ({pessoaId},
-                                                             '{logradouro}',
-                                                             {numero},
-                                                             '{bairro}',
-                                                             '{cidade}',
-                                                             '{uf}',
+                                                             (@pessoaId,
+                                                             @logradouro,
+                                                             @numero,
+                                                             @bairro,
+                                                             @cidade,
+                                                             @uf,
                                                              NOW());
                                             SELECT LAST_INSERT_ID();";
 
 
-        public static string Update = @"UPDATE endereco SET pessoaId = {pessoaId},
-                                                            logradouro = '{logradouro}',
-                                                            numero = {numero},
-                                                            bairro = '{bairro}',
-                                                            cidade = '{cidade}',
-                                                            uf = '{uf}',
+        public static string Update = @"UPDATE endereco SET pessoaId = @pessoaId,
+                                                            logradouro = @logradouro,
+                                                            numero = @numero,
+                                                            bairro = @bairro,
+                                                            cidade = @cidade,
+                                                            uf = @uf,
                                                             alteracao = NOW()
-													WHERE enderecoId = {enderecoId}";
+													WHERE enderecoId = @enderecoId";
 
-        public static string Delete = @"DELETE FROM endereco where enderecoId = {0}";
+        public static string Delete = @"DELETE FROM endereco where enderecoId = @enderecoId";
     }
 }

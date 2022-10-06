@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using peopleaddress.General;
 using peopleaddress.GeneralData;
-using peopleaddress.Models;
-using peopleaddress.QueryStrings;
 using peopleaddress.Repository;
 using peopleaddress.Request;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace peopleaddress.Controllers
 {

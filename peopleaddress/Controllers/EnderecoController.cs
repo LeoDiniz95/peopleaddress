@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using peopleaddress.General;
-using peopleaddress.QueryStrings;
+using peopleaddress.GeneralData;
+using peopleaddress.Repository;
 using peopleaddress.Request;
 
 namespace peopleaddress.Controllers
@@ -12,27 +12,41 @@ namespace peopleaddress.Controllers
     {
 
         [HttpGet("{enderecoId}")]
-        public GeneralResult Get(int enderecoId, [FromServices] ObjectDAO pObject)
-        {
-            return pObject.Get(string.Format(EnderecoQuery.Get, enderecoId));
-        }
-
-        [HttpPut("{enderecoId}")]
-        public GeneralResult Put(int enderecoId, [FromBody] AddressRequest addressRequest, [FromServices] ObjectDAO pObject)
+        public GeneralResult Get(int enderecoId, [FromServices] IUnitOfWork unitOfWork, [FromServices] Endereco endereco)
         {
             var result = new GeneralResult();
 
             try
             {
-                var queryParams = EnderecoQuery.Update.Replace("{pessoaId}", addressRequest.pessoaId.ToString())
-                                                      .Replace("{logradouro}", addressRequest.logradouro)
-                                                      .Replace("{numero}", addressRequest.numero?.ToString() ?? "NULL")
-                                                      .Replace("{bairro}", addressRequest.bairro)
-                                                      .Replace("{cidade}", addressRequest.cidade)
-                                                      .Replace("{uf}", addressRequest.uf)
-                                                      .Replace("{enderecoId}", enderecoId.ToString());
+                unitOfWork.BeginTransaction();
+                result = endereco.Get(enderecoId);
 
-                result = pObject.Other(queryParams);
+                if (result.failure)
+                    unitOfWork.Rollback();
+                else
+                    unitOfWork.Commit();
+            }
+            catch (Exception ex)
+            {
+                result.AddError(ex);
+            }
+            return result;
+        }
+
+        [HttpPut("{enderecoId}")]
+        public GeneralResult Put(int enderecoId, [FromBody] AddressRequest addressRequest, [FromServices] IUnitOfWork unitOfWork, [FromServices] Endereco endereco)
+        {
+            var result = new GeneralResult();
+
+            try
+            {
+                unitOfWork.BeginTransaction();
+                result = endereco.Put(enderecoId, addressRequest);
+
+                if (result.failure)
+                    unitOfWork.Rollback();
+                else
+                    unitOfWork.Commit();
             }
             catch (Exception ex)
             {
@@ -43,26 +57,42 @@ namespace peopleaddress.Controllers
         }
 
         [HttpDelete("{enderecoId}")]
-        public GeneralResult Delete(int enderecoId, [FromServices] ObjectDAO pObject)
-        {
-            return pObject.Other(string.Format(EnderecoQuery.Delete, enderecoId));
-        }
-
-        [HttpPost]
-        public GeneralResult Post([FromBody] AddressRequest addressRequest, [FromServices] ObjectDAO pObject)
+        public GeneralResult Delete(int enderecoId, [FromServices] IUnitOfWork unitOfWork, [FromServices] Endereco endereco)
         {
             var result = new GeneralResult();
 
             try
             {
-                var queryParams = EnderecoQuery.Insert.Replace("{pessoaId}", addressRequest.pessoaId.ToString())
-                                                      .Replace("{logradouro}", addressRequest.logradouro)
-                                                      .Replace("{numero}", addressRequest.numero?.ToString() ?? "NULL")
-                                                      .Replace("{bairro}", addressRequest.bairro)
-                                                      .Replace("{cidade}", addressRequest.cidade)
-                                                      .Replace("{uf}", addressRequest.uf);
+                unitOfWork.BeginTransaction();
+                result = endereco.Delete(enderecoId);
 
-                result = pObject.Insert(queryParams);
+                if (result.failure)
+                    unitOfWork.Rollback();
+                else
+                    unitOfWork.Commit();
+            }
+            catch (Exception ex)
+            {
+                result.AddError(ex);
+            }
+
+            return result;
+        }
+
+        [HttpPost]
+        public GeneralResult Post([FromBody] AddressRequest addressRequest, [FromServices] IUnitOfWork unitOfWork, [FromServices] Endereco endereco)
+        {
+            var result = new GeneralResult();
+
+            try
+            {
+                unitOfWork.BeginTransaction();
+                result = endereco.Insert(addressRequest);
+
+                if (result.failure)
+                    unitOfWork.Rollback();
+                else
+                    unitOfWork.Commit();
             }
             catch (Exception ex)
             {
@@ -73,9 +103,26 @@ namespace peopleaddress.Controllers
         }
 
         [HttpGet("GetAll/{pessoaId}")]
-        public GeneralResult GetAll(int pessoaId, [FromServices] ObjectDAO pObject)
+        public GeneralResult GetAll(int pessoaId, [FromServices] IUnitOfWork unitOfWork, [FromServices] Endereco endereco)
         {
-            return pObject.GetAll(string.Format(EnderecoQuery.GetAll, pessoaId));
+            var result = new GeneralResult();
+
+            try
+            {
+                unitOfWork.BeginTransaction();
+                result = endereco.GetAll(pessoaId);
+
+                if (result.failure)
+                    unitOfWork.Rollback();
+                else
+                    unitOfWork.Commit();
+            }
+            catch (Exception ex)
+            {
+                result.AddError(ex);
+            }
+
+            return result;
         }
     }
 }
