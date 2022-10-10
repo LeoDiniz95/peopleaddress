@@ -26,3 +26,14 @@ CREATE TABLE `pessoas` (
   `alteracao` datetime DEFAULT NULL,
   PRIMARY KEY (`pessoaId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) DEFAULT NULL,
+  `password` varchar(45) DEFAULT NULL,
+  `role` int NOT NULL,
+  `status` varchar(45) DEFAULT NULL,
+  `cadastro` datetime DEFAULT NULL,
+  `alteracao` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3

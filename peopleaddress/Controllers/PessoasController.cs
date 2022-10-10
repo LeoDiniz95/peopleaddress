@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using peopleaddress.General;
 using peopleaddress.GeneralData;
 using peopleaddress.Repository;
@@ -12,6 +13,7 @@ namespace peopleaddress.Controllers
     public class PessoasController : ControllerBase
     {
         [HttpGet("{pessoaId}")]
+        [Authorize]
         public GeneralResult Get(int pessoaId, [FromServices] IUnitOfWork unitOfWork, [FromServices] Pessoas pessoas)
         {
             var result = new GeneralResult();
@@ -35,6 +37,7 @@ namespace peopleaddress.Controllers
         }
 
         [HttpPut("{pessoaId}")]
+        [Authorize]
         public GeneralResult Put(int pessoaId, [FromBody] PeopleRequest peopleRequest, [FromServices] IUnitOfWork unitOfWork, [FromServices] Pessoas pessoas)
         {
             var result = new GeneralResult();
@@ -58,6 +61,7 @@ namespace peopleaddress.Controllers
         }
 
         [HttpDelete("{pessoaId}")]
+        [Authorize]
         public GeneralResult Delete(int pessoaId, [FromServices] IUnitOfWork unitOfWork, [FromServices] Pessoas pessoas)
         {
             var result = new GeneralResult();
@@ -81,6 +85,7 @@ namespace peopleaddress.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public GeneralResult Post([FromBody] PeopleRequest peopleRequest, [FromServices] IUnitOfWork unitOfWork, [FromServices] Pessoas pessoas)
         {
             var result = new GeneralResult();
@@ -103,6 +108,7 @@ namespace peopleaddress.Controllers
         }
 
         [HttpGet("GetAll")]
+        [Authorize]
         public GeneralResult GetAll([FromServices] IUnitOfWork unitOfWork, [FromServices] Pessoas pessoas)
         {
             var result = new GeneralResult();

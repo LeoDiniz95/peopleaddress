@@ -16,6 +16,8 @@ namespace peopleaddress.General
 
         public string date { get; set; }
 
+        public List<string> message { get; set; }
+
         public GeneralResult()
         {
             failure = false;
@@ -35,6 +37,11 @@ namespace peopleaddress.General
             data = new { };
             ChangeStatus(HttpStatusCode.BadRequest);
             errors.Add(ex.Message);
+        }
+
+        public void AddMessage(string _message)
+        {
+            message.Add(_message);
         }
     }
 }

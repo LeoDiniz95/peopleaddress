@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using peopleaddress.General;
 using peopleaddress.GeneralData;
 using peopleaddress.Repository;
@@ -12,6 +13,7 @@ namespace peopleaddress.Controllers
     {
 
         [HttpGet("{enderecoId}")]
+        [Authorize]
         public GeneralResult Get(int enderecoId, [FromServices] IUnitOfWork unitOfWork, [FromServices] Endereco endereco)
         {
             var result = new GeneralResult();
@@ -34,6 +36,7 @@ namespace peopleaddress.Controllers
         }
 
         [HttpPut("{enderecoId}")]
+        [Authorize]
         public GeneralResult Put(int enderecoId, [FromBody] AddressRequest addressRequest, [FromServices] IUnitOfWork unitOfWork, [FromServices] Endereco endereco)
         {
             var result = new GeneralResult();
@@ -57,6 +60,7 @@ namespace peopleaddress.Controllers
         }
 
         [HttpDelete("{enderecoId}")]
+        [Authorize]
         public GeneralResult Delete(int enderecoId, [FromServices] IUnitOfWork unitOfWork, [FromServices] Endereco endereco)
         {
             var result = new GeneralResult();
@@ -80,6 +84,7 @@ namespace peopleaddress.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public GeneralResult Post([FromBody] AddressRequest addressRequest, [FromServices] IUnitOfWork unitOfWork, [FromServices] Endereco endereco)
         {
             var result = new GeneralResult();
@@ -103,6 +108,7 @@ namespace peopleaddress.Controllers
         }
 
         [HttpGet("GetAll/{pessoaId}")]
+        [Authorize]
         public GeneralResult GetAll(int pessoaId, [FromServices] IUnitOfWork unitOfWork, [FromServices] Endereco endereco)
         {
             var result = new GeneralResult();

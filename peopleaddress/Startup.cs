@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
-using peopleaddress.General;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using peopleaddress.GeneralData;
 using peopleaddress.Repository;
+using System.Text;
 
 namespace peopleaddress
 {
@@ -18,9 +19,31 @@ namespace peopleaddress
         {
             services.AddScoped<DbSession>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddCors();
+
             //services.AddTransient<ObjectDAO>();
             services.AddTransient<Pessoas>();
             services.AddTransient<Endereco>();
+            services.AddTransient<User>();
+
+            var key = Encoding.ASCII.GetBytes(_configuration["TokenAuth"]);
+
+            services.AddAuthentication(x =>
+                    {
+                        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                    }).AddJwtBearer(x =>
+                    {
+                        x.RequireHttpsMetadata = false;
+                        x.SaveToken = true;
+                        x.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(key),
+                            ValidateIssuer = false,
+                            ValidateAudience = false
+                        };
+                    });
 
             services.AddMvc();
         }
@@ -37,7 +60,16 @@ namespace peopleaddress
                 });
             }
 
+            app.UseRouting();
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
         }
