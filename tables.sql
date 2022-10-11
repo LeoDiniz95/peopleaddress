@@ -30,8 +30,8 @@ CREATE TABLE `pessoas` (
 CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
-  `role` int NOT NULL,
+  `password` text NOT NULL,
+  `role` varchar(255) NOT NULL,
   `status` varchar(45) DEFAULT NULL,
   `cadastro` datetime DEFAULT NULL,
   `alteracao` datetime DEFAULT NULL,

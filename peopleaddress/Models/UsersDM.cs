@@ -1,5 +1,8 @@
-﻿namespace peopleaddress.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace peopleaddress.Models
 {
+    [Table("users")]
     public class UsersDM
     {
         public int id { get; set; }
